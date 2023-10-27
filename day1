@@ -1,0 +1,25 @@
+CREATE TABLE corporation (
+	  corp_id SMALLINT
+	, NAME VARCHAR(30)
+	, PRIMARY KEY (corp_id)
+);
+
+CREATE TABLE corporation2 (
+	  corp_id SMALLINT PRIMARY KEY 
+	, NAME VARCHAR(30) 
+); 
+
+DROP TABLE corporation3;
+DROP TABLE corporation2;
+DROP TABLE corporation;
+
+
+
+INSERT INTO corporation 
+(corp_id, NAME)
+VALUES
+(1, '곽경록');
+
+
+
+
