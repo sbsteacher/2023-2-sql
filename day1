@@ -116,4 +116,37 @@ VALUES
 	, '23 Maple St.', 'Arlington', 'VA', 'USA', '20220'
 );
 
+INSERT INTO favorite_food
+(person_id, food)
+VALUES
+(1, '햄버거');
 
+INSERT INTO favorite_food
+(person_id, food)
+VALUES
+(1, '닭발');
+
+
+
+CREATE TABLE person2(
+	person_id INT UNSIGNED PRIMARY KEY
+	, num INT UNSIGNED UNIQUE
+);
+
+CREATE TABLE food_favorite(
+	  my_num INT UNSIGNED PRIMARY KEY
+	, food VARCHAR(20)
+	, FOREIGN KEY (my_num) REFERENCES person2(num)
+);
+
+
+UPDATE person
+SET street = '1225 Tremont St.'
+, city = 'Boston'
+, state = 'MA'
+, country = 'USA'
+, postal_code = '02138'
+WHERE person_id = 1;
+
+
+SELECT * FROM person;
