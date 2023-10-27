@@ -3,7 +3,11 @@ CREATE TABLE corporation (
 	, NAME VARCHAR(30)
 	, PRIMARY KEY (corp_id)
 );
+/* 
+멀티라인 주석
+*/
 
+-- 싱글라인 주석
 CREATE TABLE corporation2 (
 	  corp_id SMALLINT PRIMARY KEY 
 	, NAME VARCHAR(30) 
@@ -18,7 +22,51 @@ DROP TABLE corporation;
 INSERT INTO corporation 
 (corp_id, NAME)
 VALUES
-(1, '곽경록');
+(1, '곽경록'); 
+
+INSERT INTO corporation 
+(corp_id, NAME)
+VALUES
+(2, '김경현'); 
+
+
+INSERT INTO corporation 
+(corp_id, NAME)
+VALUES
+(3, '김동하'); 
+
+
+INSERT INTO corporation 
+(corp_id, NAME)
+VALUES
+(4, '김태형'); 
+
+
+INSERT INTO corporation 
+(corp_id, NAME)
+VALUES
+(5, '김현빈'),
+(6, '김현수');
+
+SELECT corp_id, name 
+FROM corporation
+WHERE corp_id % 2 = 0;
+
+/*
+Oracle, SQL Server, MySql/MariaDB
+3, '김동하'
+4, '김태형'
+5, '김현빈'
+6, '김현수'
+*/
+UPDATE corporation
+SET NAME = 'Rachel'
+WHERE corp_id = 5;
+
+
+
+
+
 
 
 
