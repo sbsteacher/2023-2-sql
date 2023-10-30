@@ -5,3 +5,152 @@ WHERE city_id = 1 OR city_id = 2;
 SELECT *
 FROM address
 WHERE city_id IN (1, 2);
+
+SELECT * 
+FROM person 
+WHERE lname = 'Smith';
+
+SELECT * 
+FROM person
+ORDER BY person_id DESC;
+
+SELECT * 
+FROM person
+ORDER BY lname DESC;
+
+
+DELETE FROM favorite_food;
+
+-- 1번 유저의 좋아하는 음식 pizza, cookies, nachos
+
+INSERT INTO favorite_food
+(person_id, food)
+VALUES
+  (1, 'pizza')
+, (1, 'cookies')
+, (1, 'nachos');
+
+INSERT INTO person
+(person_id, fname, lname, eye_color, birth_date
+, street, city, state, country, postal_code)
+VALUES
+(3, 'Jackson', 'Jacob', 'GR', '1976-11-22'
+, '23 Maple St.', 'Arlington', 'VA', 'USA', '20220'); 
+
+UPDATE person
+SET eye_color = 'ZZ'
+WHERE person_id = 1;
+
+SELECT STR_TO_DATE('Oct-21-1980', '%b-%d-%Y');
+
+SELECT date_format(NOW(), '%Y/%m/%d'); -- 2023/10/30
+
+
+SELECT birth_date, '111', '1975/11/02', DATE_FORMAT(birth_date, '%Y/%m/%d')
+FROM person;
+
+-- sakila 데이터베이스 사용
+USE sakila;
+
+SELECT * FROM film;
+
+SHOW TABLES;
+DESC film;
+
+-- p.77
+
+
+/* customer 테이블에서 last_name이 ZIEGLER 인 사람을 찾아주세요. (없음) */
+SELECT *
+FROM customer
+WHERE last_name = 'ZIEGLER';
+
+/* customer 테이블에서 비활성화 된 고객 리스트  */
+SELECT *
+FROM customer
+WHERE active = 0;
+
+-- select절의 모음
+SELECT *
+FROM customer
+WHERE active = 1
+GROUP BY store_id
+HAVING COUNT(*) >= 300
+ORDER BY customer_id DESC
+LIMIT 1;
+
+-- select절
+SELECT first_name, last_name, store_id 
+FROM customer;
+
+SELECT language_id as 'id', NAME as 'my_name', 'COMMON' as 'typ', 1 AS 'num'
+, upper(NAME), LOWER(NAME), 2 *   2
+FROM language;
+
+-- 배우의 last_name이 'AKROYD'인 사람을 찾는다.
+SELECT distinct last_name 
+FROM actor
+WHERE last_name = 'AKROYD';
+
+
+SELECT distinct first_name, last_name 
+FROM actor
+WHERE last_name = 'AKROYD';
+
+-- 5,462 row 갖고있는 film_actor
+
+SELECT distinct actor_id
+FROM film_actor;
+
+
+-- 파생테이블 (컬럼명 full_name)
+SELECT CONCAT(A.fname, ' ', A.last_name, '입니다.') AS full_name
+FROM 
+(SELECT first_name AS fname, last_name, email
+	FROM customer
+	WHERE lower(first_name) = 'jessie') as A;
+
+
+CREATE TEMPORARY TABLE actors_j
+(
+	actor_id SMALLINT(5),
+	first_name VARCHAR(45),
+	last_name VARCHAR(45)
+);
+
+
+SELECT * FROM actors_j;
+
+INSERT INTO actors_j
+SELECT actor_id, first_name, last_name
+FROM actor;
+
+
+-- 가상뷰 view
+
+CREATE VIEW view_customer_1 AS
+SELECT customer_id, first_name, last_name, active
+FROM customer;
+
+
+
+
+SELECT * FROM view_customer_1;
+
+
+
+
+-- actor, film, film_actor 조인
+SELECT A.first_name, A.last_name
+, FA.actor_id, FA.film_id
+, F.title
+FROM film_actor FA
+JOIN actor A
+ON FA.actor_id = A.actor_id
+JOIN film F
+ON FA.film_id = F.film_id
+ORDER BY FA.actor_id;
+
+
+
+
