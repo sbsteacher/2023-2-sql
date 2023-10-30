@@ -141,9 +141,9 @@ SELECT * FROM view_customer_1;
 
 
 -- actor, film, film_actor 조인
-SELECT A.first_name, A.last_name
+SELECT A.first_name, A.last_name, A.actor_id
 , FA.actor_id, FA.film_id
-, F.title
+, F.film_id, F.title
 FROM film_actor FA
 JOIN actor A
 ON FA.actor_id = A.actor_id
@@ -151,6 +151,9 @@ JOIN film F
 ON FA.film_id = F.film_id
 ORDER BY FA.actor_id;
 
+UPDATE actor
+SET first_name = 'PENELOPA'
+WHERE actor_id = 1;
 
 
 
