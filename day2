@@ -1,0 +1,7 @@
+SELECT *
+FROM address
+WHERE city_id = 1 OR city_id = 2;
+
+SELECT *
+FROM address
+WHERE city_id IN (1, 2);
