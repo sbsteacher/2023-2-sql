@@ -1,0 +1,79 @@
+/* 
+1. 영화 rating 값이 'G'면서 rental_duration 7일 이상인 영화리스트, 
+ 영화 제목만 나타내시오.
+*/
+
+SELECT title 
+FROM film
+WHERE rating = 'G' AND rental_duration >= 7;
+
+
+
+/* 
+2. 영화 rating 값이 'G'면서 rental_duration 7일 이상인 영화리스트와
+ rating이 'PG-13' 이면서 rental_duration이 4일 미만인 영화리스트
+  영화 제목, rating, rental_duration만 나타내시오.
+*/
+
+SELECT title, rating, rental_duration
+FROM film
+WHERE 
+(rating = 'G' AND rental_duration >= 7)
+OR
+(rating = 'PG-13' AND rental_duration < 4)
+ORDER BY rating;
+
+
+-- 그룹함수 Group Function sum, min, max, count, avg
+SELECT SUM(amount), MAX(amount), MIN(amount)
+, COUNT(payment_id), AVG(amount)
+, SUM(amount) / COUNT(payment_id)
+FROM payment;
+
+
+-- 고객마다 사용한 금액이 궁금하다.
+SELECT customer_id, SUM(amount) AS sum_amount
+FROM payment
+GROUP BY customer_id
+ORDER BY sum_amount;
+
+-- 고객마다 사용한 금액 중 사용금액이 100달러 이상인 고객만 보고싶다.
+SELECT customer_id, SUM(amount) AS sum_amount
+FROM payment
+GROUP BY customer_id
+HAVING sum_amount >= 100
+ORDER BY sum_amount;
+
+-- 스텝마다의 총 판매금액, 평균 판매금액을 출력해 주세요
+SELECT staff_id, SUM(amount), AVG(amount)
+FROM payment
+GROUP BY staff_id;
+
+
+
+SELECT * FROM rental;
+
+SELECT DATE(rental_date), time(rental_date), rental_date
+FROM rental;
+
+SELECT *
+FROM rental
+WHERE DATE(rental_date) = '2005-05-24';
+
+
+
+/* 
+2005년 06월 14일에 렌탈을 한 고객의
+first_name, last_name, 렌탈 시간만 나타낸다.
+*/
+
+
+
+
+
+
+
+
+
+
+
