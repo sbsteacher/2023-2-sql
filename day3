@@ -67,10 +67,38 @@ WHERE DATE(rental_date) = '2005-05-24';
 first_name, last_name, 렌탈 시간만 나타낸다.
 */
 
+SELECT B.first_name, B.last_name, TIME(A.rental_date)
+FROM rental A 
+INNER JOIN customer B
+ON A.customer_id = B.customer_id
+WHERE DATE(A.rental_date) = '2005-06-14'
+ORDER BY A.rental_date DESC;
 
+-- p.101
+-- 실습 3-1
+SELECT actor_id, first_name, last_name
+FROM actor
+ORDER BY last_name, first_name DESC;
 
+-- 실습 3-2
+SELECT actor_id, first_name, last_name
+FROM actor
+WHERE last_name IN ('WILLIAMS', 'DAVIS');
 
+-- 실습 3-3
+SELECT customer_id
+FROM rental
+WHERE date(rental_date) = '2005-07-05'
+ORDER BY customer_id;
 
+-- 실습 3-4
+-- #1: r, #2: r.customer_id, #3: r.return_date, #4: desc
+SELECT c.email, r.return_date
+FROM customer c
+INNER JOIN rental r
+ON c.customer_id = r.customer_id
+WHERE DATE(r.rental_date) = '2005-06-14'
+ORDER BY r.return_date DESC;
 
 
 
