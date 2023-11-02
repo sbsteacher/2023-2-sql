@@ -266,7 +266,15 @@ JOIN t_customer B
 ON A.iaddress = B.iaddress;
 
 
-SELECT * FROM t_customer2;
+SELECT * 
+FROM t_customer2 A
+JOIN t_address B
+ON A.iaddress = B.iaddress;
+
+SELECT *, ifnull(B.name, '') AS name
+FROM t_customer2 A 
+LEFT JOIN t_address B
+ON A.iaddress = B.iaddress;
 
 
 
