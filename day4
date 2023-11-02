@@ -1,0 +1,141 @@
+SELECT * FROM customer
+WHERE first_name= 'JAMIE' AND store_id = 1;
+
+SELECT * FROM customer
+WHERE first_name= 'JAMIE' OR store_id = 1;
+
+SELECT * FROM customer
+WHERE (first_name != 'STEVEN' OR last_name = 'YOUNG')
+AND create_date <> '2006-01-01';
+
+-- customer에서 동명이인(first_name)이 있는 사람만 나타내고 싶어.
+SELECT first_name
+FROM customer
+ORDER BY first_name;
+
+SELECT first_name, COUNT(first_name) AS cnt
+FROM customer
+GROUP BY first_name
+HAVING cnt > 1;
+
+
+
+-- rental 테이블에서 렌탈한 년도가 2004년도인 렌탈 정보를 보고싶다. (컬럼 전부)
+SELECT * FROM rental
+WHERE YEAR(rental_date) = 2004;
+
+-- rental 테이블에서 렌탈년도가 2005이 아니고 2006년이 아닌 레코드
+SELECT * FROM rental
+WHERE YEAR(rental_date) != 2005 AND YEAR(rental_date) != 2006;
+
+SELECT * FROM rental
+WHERE !(YEAR(rental_date) IN (2005, 2006));
+
+SELECT * FROM rental
+WHERE YEAR(rental_date) NOT IN (2005, 2006);
+
+-- rental 테이블, 2005-05-25 미만 레코드
+SELECT * FROM rental
+WHERE rental_date = '2005-05-25';
+
+-- rental 테이블, 2005-06-14 ~ 2005-06-15 (364r)
+SELECT * FROM rental
+WHERE date(rental_date) >= '2005-06-14' 
+AND date(rental_date) <= '2005-06-15';
+
+SELECT * FROM rental
+WHERE date(rental_date) BETWEEN '2005-06-14' AND '2005-06-15';
+
+-- between 연산자 이용, payment 테이블에서 amount값이 10.0~11.99 레코드
+
+SELECT * 
+FROM payment
+WHERE amount BETWEEN 10.0 AND 11.99;
+
+SELECT *
+FROM customer
+WHERE last_name BETWEEN 'FA' AND 'FR';
+
+
+
+-- p.117 서브쿼리
+SELECT film_id, title, rating FROM film WHERE title LIKE '%PET%';
+
+SELECT film_id, title, rating
+FROM film
+WHERE rating IN (SELECT distinct rating FROM film WHERE title LIKE '%PET%');
+
+-- 스칼라 (Scalar)
+SELECT film_id, title, rating
+FROM film
+WHERE rating = (SELECT distinct rating FROM film WHERE title LIKE 'PET%');
+
+
+SELECT title, rating
+FROM film
+WHERE rating IN ('G', 'PG');
+
+-- 문자열 함수 left, right, mid
+SELECT last_name, LEFT(last_name, 3), RIGHT(last_name, 2)
+, MID(last_name, 3, 2)
+FROM customer;
+
+-- 고객 성(last_name)중에 Q로 시작하는 사람 레코드
+SELECT *
+FROM customer
+WHERE LEFT(last_name, 1) = 'Q';
+
+SELECT *
+FROM customer
+WHERE last_name LIKE 'Q%';
+
+
+-- 와일드카드 (_, %) 
+-- _: 1자리 차지
+-- %: 0~무한대 자리 차지
+SELECT *
+FROM customer
+WHERE last_name LIKE '_A_T%S';
+
+-- FBI
+-- F
+-- F%, F_ 
+
+
+-- T
+-- %T, _T
+
+-- __T_
+
+-- ______-_______
+
+-- 이메일 > aaaaa | bbbbb or aaaa.__.___
+
+
+
+SELECT * FROM rental
+WHERE return_date is NULL;
+
+
+SELECT * FROM rental
+WHERE !(return_date is NULL);
+
+SELECT * FROM rental
+WHERE return_date is not NULL;
+
+
+-- 반납하지 않은 사람의 pk, 풀네임, 빌려간 날짜
+
+
+
+
+
+
+
+
+
+
+
+
+
+
