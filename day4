@@ -126,16 +126,44 @@ WHERE return_date is not NULL;
 
 -- 반납하지 않은 사람의 pk, 풀네임, 빌려간 날짜
 
+SELECT 
+  A.rental_date
+, B.customer_id 
+, CONCAT(B.first_name, ' ', B.last_name) AS full_name
+FROM rental A
+INNER JOIN customer B
+ON A.customer_id = B.customer_id
+WHERE A.return_date IS NULL;
 
 
 
+-- p.126
 
 
+-- 실습 4-1
+SELECT * 
+FROM payment
+WHERE payment_id BETWEEN 101 AND 120
+AND customer_id != 5 
+AND (amount > 8 OR DATE(payment_date) = '2005-08-23');
 
 
+-- 실습 4-2
+SELECT * 
+FROM payment
+WHERE payment_id BETWEEN 101 AND 120
+AND customer_id = 5 
+AND NOT (amount > 6 OR DATE(payment_date) = '2005-06-19');
 
 
+-- 실습 4-3
+SELECT * FROM payment
+WHERE amount IN (1.98, 7.98, 9.98);
 
+
+-- 실습 4-4
+SELECT * FROM customer
+WHERE last_name LIKE '_AW%';
 
 
 
