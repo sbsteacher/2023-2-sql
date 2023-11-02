@@ -167,3 +167,110 @@ WHERE last_name LIKE '_AW%';
 
 
 
+-- p.131 데카르트 곱
+
+SELECT COUNT(*) FROM customer; -- 1000r
+SELECT COUNT(*) FROM address; -- 603r
+
+SELECT COUNT(*) FROM customer A JOIN address B; -- 361,197r
+
+SELECT A.customer_id, B.address_id FROM customer A JOIN address B; 
+
+SELECT A.customer_id, B.address_id 
+FROM customer A 
+INNER JOIN address B
+ON A.address_id = B.address_id
+; 
+
+
+
+USE exam;
+SELECT * FROM person;
+
+
+CREATE TABLE t_address(
+	  iaddress INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+	, NAME VARCHAR(10) NOT null
+);
+
+SELECT * FROM t_address;
+
+INSERT INTO t_address
+  (NAME)
+VALUES
+  ('대도시')
+, ('도시')
+, ('시골');
+
+
+CREATE TABLE t_customer(
+	  icustomer INT UNSIGNED AUTO_INCREMENT PRIMARY key
+	, NAME VARCHAR(10) NOT NULL
+	, msg VARCHAR(30)
+	, iaddress INT UNSIGNED NOT NULL
+	, FOREIGN KEY (iaddress) REFERENCES t_address(iaddress)
+);
+
+CREATE TABLE t_customer2(
+   icustomer INT UNSIGNED AUTO_INCREMENT PRIMARY key
+	, NAME VARCHAR(10) NOT NULL
+	, msg VARCHAR(30)
+	, iaddress INT UNSIGNED NOT NULL
+);
+
+SELECT * FROM t_customer;
+
+INSERT INTO t_customer
+(NAME, iaddress)
+VALUES
+  ('곽경록', 1)
+, ('김경현', 2)
+, ('김동하', 3)
+, ('김태형', 1)
+, ('김현빈', 2);
+
+
+INSERT INTO t_customer2
+(NAME, iaddress)
+VALUES
+  ('곽경록', 1)
+, ('김경현', 2)
+, ('김동하', 3)
+, ('김태형', 1)
+, ('김현빈', 2)
+, ('김현수', 4)
+, ('김현일', 5);
+
+
+
+
+INSERT INTO t_customer
+(NAME, iaddress)
+VALUES
+('김현수', 4);
+
+
+DELETE FROM t_customer 
+WHERE icustomer >= 6;
+
+
+
+
+
+SELECT * FROM t_address; -- 3r
+SELECT * FROM t_customer; -- 5r
+
+SELECT * 
+FROM t_address A
+JOIN t_customer B
+ON A.iaddress = B.iaddress;
+
+
+SELECT * FROM t_customer2;
+
+
+
+
+
+
+
