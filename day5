@@ -9,12 +9,12 @@ ON c.address_id = a.address_id;
 
 -- 3개 테이블 조인
 SELECT * FROM city;
-SELECT * FROM address
-WHERE city_id = 42;
+SELECT * FROM address;
 SELECT * FROM customer;
 
 -- city_id값이 중복되는 레코드를 address테이블에서 찾고싶다.
-SELECT A.address_id, A.address, B.city
+SELECT A.address_id, A.address, A.city_id
+, B.city_id, B.city
 FROM address A
 INNER JOIN city B
 ON A.city_id = B.city_id
@@ -26,7 +26,7 @@ WHERE A.city_id IN (
 ORDER BY A.city_id;
 
 
-
+-- 고객pk, 고객이름, 성, 주소, 도시명
 
 
 
