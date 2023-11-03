@@ -25,8 +25,143 @@ WHERE A.city_id IN (
 )
 ORDER BY A.city_id;
 
+-- 고객pk, 고객이름, 성, 주소, 도시명, 나라
+SELECT A.customer_id, A.last_name, A.first_name
+, B.address
+, C.city
+, D.country
+FROM customer A
+INNER JOIN address B
+ON A.address_id = B.address_id
+INNER JOIN city C
+ON B.city_id = C.city_id
+INNER JOIN country D
+ON C.country_id = D.country_id;
 
--- 고객pk, 고객이름, 성, 주소, 도시명
+-- 조인 with 서브쿼리
+SELECT c.first_name, c.last_name, addr.address, addr.city
+FROM customer c
+INNER JOIN
+(
+	SELECT a.address_id, a.address, ct.city
+	FROM address a
+	INNER JOIN city ct
+	ON a.city_id = ct.city_id
+	WHERE a.district = 'California'
+) addr
+ON c.address_id = addr.address_id;
+
+/*
+	 배우 성, 이름이 'CATE MCQUEEN' 혹은 'CUBA BIRCH'인 사람이 
+	 출연한 영화 제목을 알고 싶다. 영화제목만 알면 된다.
+*/
+
+SELECT C.title
+FROM actor A
+INNER JOIN film_actor B
+ON A.actor_id = B.actor_id
+INNER JOIN film C
+ON B.film_id = C.film_id
+WHERE (A.first_name = 'CATE' AND A.last_name = 'MCQUEEN')
+OR (A.first_name = 'CUBA' AND A.last_name = 'BIRCH')
+ORDER BY c.title;
+
+
+
+
+
+
+
+SELECT *
+FROM film A
+INNER JOIN (
+	SELECT film_id FROM film_actor
+	WHERE actor_id IN (
+		SELECT actor_id
+		FROM actor
+		WHERE (first_name = 'CATE' AND last_name = 'MCQUEEN')
+		OR (first_name = 'CUBA' AND last_name = 'BIRCH')
+	)
+	GROUP BY film_id
+	HAVING COUNT(film_id) > 1
+) B
+ON A.film_id = B.film_id;
+
+-- p.142
+
+-- (1) CATE MCQUEEN 이 출연한 film_id값을 구하자.
+SELECT *
+FROM film_actor fa1
+INNER JOIN actor a1
+ON fa1.actor_id = a1.actor_id
+WHERE a1.first_name = 'CATE' AND a1.last_name = 'MCQUEEN';
+
+
+SELECT * FROM actor a1
+WHERE a1.first_name = 'CATE' AND a1.last_name = 'MCQUEEN';
+
+
+-- (2) CUBA BIRCH이 출연한 film_id값을 구하자.
+SELECT *
+FROM film_actor fa2
+INNER JOIN actor a2
+ON fa2.actor_id = a2.actor_id
+WHERE a2.first_name = 'CUBA' AND a2.last_name = 'BIRCH';
+
+
+SELECT * FROM actor a2
+WHERE a2.first_name = 'CUBA' AND a2.last_name = 'BIRCH';
+
+-- (3) 두 결과 inner join으로 합치자!!!
+
+SELECT f.*
+FROM film f
+
+INNER JOIN film_actor fa1
+ON f.film_id = fa1.film_id
+INNER JOIN actor a1
+ON fa1.actor_id = a1.actor_id
+
+INNER JOIN film_actor fa2
+ON f.film_id = fa2.film_id
+INNER JOIN actor a2
+ON fa2.actor_id = a2.actor_id
+
+WHERE (a2.first_name = 'CUBA' AND a2.last_name = 'BIRCH')
+AND (a1.first_name = 'CATE' AND a1.last_name = 'MCQUEEN');
+
+
+-- //////////////////////////////////////////////
+
+SELECT f.*
+FROM film f
+
+INNER JOIN film_actor fa1
+ON f.film_id = fa1.film_id
+INNER JOIN actor a1
+ON fa1.actor_id = a1.actor_id
+AND (a1.first_name = 'CATE' AND a1.last_name = 'MCQUEEN')
+
+INNER JOIN film_actor fa2
+ON f.film_id = fa2.film_id
+INNER JOIN actor a2
+ON fa2.actor_id = a2.actor_id
+AND (a2.first_name = 'CUBA' AND a2.last_name = 'BIRCH');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
