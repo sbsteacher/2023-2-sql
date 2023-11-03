@@ -148,8 +148,44 @@ INNER JOIN actor a2
 ON fa2.actor_id = a2.actor_id
 AND (a2.first_name = 'CUBA' AND a2.last_name = 'BIRCH');
 
+-- p.143 셀프조인
+USE exam;
+CREATE TABLE employees (
+	iemp INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+	, NAME VARCHAR(10) NOT NULL
+	, iemp_manager INT UNSIGNED 
+	, FOREIGN KEY(iemp_manager) REFERENCES employees(iemp)
+);
 
+INSERT INTO employees
+  (NAME)
+VALUES
+  ('박동현')
+, ('배용진')
+, ('배환');
 
+SELECT * FROM employees;
+
+INSERT INTO employees
+(NAME, iemp_manager)
+VALUES
+('백승준', 1);
+
+INSERT INTO employees
+(NAME, iemp_manager)
+VALUES
+('양애영', 4);
+
+/* 
+사수가 있는 사람만 나와야하고 내 이름과 사수 이름을 출력.
+4, 백승준, 박동현
+5, 양애영, 백승준
+*/
+SELECT A.iemp, A.name, B.name AS manager_name
+FROM employees A
+INNER JOIN employees B
+-- ON A.iemp_manager = B.iemp;
+ON A.iemp = B.iemp_manager;
 
 
 
