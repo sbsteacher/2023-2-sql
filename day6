@@ -24,4 +24,18 @@ SET nm = '유관순'
 WHERE iuser = 1;
 
 
-
+CREATE TABLE t_feed(
+	  ifeed INT UNSIGNED AUTO_INCREMENT
+	, iuser INT UNSIGNED NOT NULL
+	, cntns VARCHAR(1000)
+	, location VARCHAR(30)
+	, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP	
+	, updated_at DATETIME not null DEFAULT CURRENT_TIMESTAMP 
+	  ON UPDATE CURRENT_TIMESTAMP
+	, PRIMARY KEY(ifeed)
+	, FOREIGN KEY (iuser) REFERENCES t_user(iuser)
+);
+INSERT INTO t_feed
+(iuser, cntns, location)
+VALUES
+(1, '놀러감', '써울') 
