@@ -38,4 +38,26 @@ CREATE TABLE t_feed(
 INSERT INTO t_feed
 (iuser, cntns, location)
 VALUES
-(1, '놀러감', '써울') 
+(1, '놀러감', '써울') ;
+
+SELECT * FROM t_feed;
+
+CREATE TABLE t_feed_pics (
+     ifeed_pics INT UNSIGNED AUTO_INCREMENT
+	, ifeed INT UNSIGNED
+	, pic VARCHAR(100) NOT NULL
+	, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP		
+	, PRIMARY KEY(ifeed_pics)
+	, FOREIGN KEY(ifeed) REFERENCES t_feed(ifeed)
+);
+INSERT INTO t_feed_pics
+(ifeed, pic)
+VALUES
+(2, 'aaa.jpg');
+
+
+
+
+
+
+
