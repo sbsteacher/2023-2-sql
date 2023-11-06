@@ -1,3 +1,4 @@
+-- GreenGram  (https://www.erdcloud.com/d/ggjbp6rFbkGwPzeek)
 DROP TABLE t_user;
 CREATE TABLE t_user(
 	iuser INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
@@ -55,8 +56,22 @@ INSERT INTO t_feed_pics
 VALUES
 (1, 'aaa.jpg');
 
+CREATE TABLE t_favorite(
+	  ifeed INT UNSIGNED
+	, iuser INT UNSIGNED
+	, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP	
+	, PRIMARY KEY(ifeed, iuser)
+	, FOREIGN KEY(ifeed) REFERENCES t_feed(ifeed)
+	, FOREIGN KEY(iuser) REFERENCES t_user(iuser)
+);
+SELECT * FROM t_favorite;
 
-
+INSERT INTO t_favorite
+  (ifeed, iuser)
+VALUES
+  (1, 1)
+, (1, 2)
+, (1, 3);
 
 
 
