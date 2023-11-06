@@ -53,7 +53,7 @@ CREATE TABLE t_feed_pics (
 INSERT INTO t_feed_pics
 (ifeed, pic)
 VALUES
-(2, 'aaa.jpg');
+(1, 'aaa.jpg');
 
 
 
