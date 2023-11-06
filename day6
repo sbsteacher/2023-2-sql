@@ -1,0 +1,27 @@
+DROP TABLE t_user;
+CREATE TABLE t_user(
+	iuser INT UNSIGNED AUTO_INCREMENT PRIMARY KEY
+  	, uid VARCHAR(25) NOT NULL
+	, upw VARCHAR(25) NOT NULL
+	, nm VARCHAR(25) NOT null
+	, pic VARCHAR(100)
+	, created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP	
+	, updated_at DATETIME not null DEFAULT CURRENT_TIMESTAMP 
+	  ON UPDATE CURRENT_TIMESTAMP 
+);
+
+INSERT INTO t_user
+	(uid, upw, nm)
+VALUES
+	('mic', '1212', '홍길동')
+,  ('marine', '1212', '장보고')
+,  ('craft', '1212', '신사임당');
+
+SELECT * FROM t_user;
+
+UPDATE t_user
+SET nm = '유관순'
+WHERE iuser = 1;
+
+
+
